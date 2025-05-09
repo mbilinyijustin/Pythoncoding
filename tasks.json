@@ -1,0 +1,12 @@
+[
+    {
+        "task": "greatings",
+        "timestamp": "2025-05-09 13:47:46",
+        "done": true
+    },
+    {
+        "task": "seating",
+        "timestamp": "2025-05-09 13:48:03",
+        "done": false
+    }
+]
