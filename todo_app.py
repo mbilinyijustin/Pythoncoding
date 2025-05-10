@@ -23,17 +23,24 @@ def show_tasks(tasks):
         return
     for i, task in enumerate(tasks, 1):
         status = "✅ Done" if task["done"] else "❌ Note done"
-        print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
+        category = task.get("category", "Uncategorized")
+        #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
+        print(f"{i}. {task['task']} ({category}) - {status} - Added: {task['timestamp']}")
 
 
 def add_task(tasks):
-    task_name = input("Enter the task: ")
-    task = {
-        "task": task_name,
+    #task_name = input("Enter the task: ")
+    task_desc = input("Enter new task: ")
+    category = input("Enter category (e.g., Work, School, Personal):")
+
+    new_task = {
+        "task": task_desc,
+        "category": category,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "done": False
     }
-    tasks.append(task)
+
+    tasks.append(new_task)
     save_tasks(tasks)
     print("✅ Task added.")
 
@@ -84,6 +91,8 @@ def sort_tasks(tasks):
     print("2. Date added (newest first)")
     print("3. Status (✅ done  first)")
     print("4. Status (❌ not done first)")
+    print("5. Category (Categorized first")
+    print("6. Category (Uncategorized first")
     choice = input("Choose an option: ")
 
     if choice == "1":
@@ -102,6 +111,19 @@ def sort_tasks(tasks):
     show_tasks(tasks)
 
 
+def filter_by_category(tasks):
+    keyword = input("Enter category name to filter: ")
+    found = False
+    for i, task in enumerate(tasks):
+        category = task.get('category', 'Uncategorized')  #Default if key is missing
+        if category.lower() == keyword.lower():
+            status = "✅" if task['done'] else "❌"
+            print(f"{i + 1}. {task['task']} ({category}) - {status} - Added: {task['timestamp']}")
+            found = True
+    if not found:
+        print("❌ No tasks found in this category.")
+
+
 def main():
     tasks = load_tasks()
 
@@ -113,7 +135,8 @@ def main():
         print("4. Delete task")
         print("5. 🔍 Search task")
         print("6. Sort tasks")
-        print("7. Exit")
+        print("7. View task by category")
+        print("8. Exit")
 
         choice = input("Choose an Option: ")
 
@@ -130,6 +153,8 @@ def main():
         elif choice == "6":
             sort_tasks(tasks)
         elif choice == "7":
+            filter_by_category(tasks)
+        elif choice == "8":
             print("👋 Goodbye!")
             break
         else:
