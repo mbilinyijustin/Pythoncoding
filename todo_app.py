@@ -78,6 +78,30 @@ def search_tasks(tasks):
         print("🔍 No matching task found.")
 
 
+def sort_tasks(tasks):
+    print("Sort by:")
+    print("1. Date added (oldest first)")
+    print("2. Date added (newest first)")
+    print("3. Status (✅ done  first)")
+    print("4. Status (❌ not done first)")
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        tasks.sort(key=lambda x: x['timestamp'])  # ascending
+    elif choice == "2":
+        tasks.sort(key=lambda x: x['timestamp'], reverse=True)  # descending
+    elif choice == "3":
+        tasks.sort(key=lambda x: not ['done'])  # True = 1, Fakse = 0
+    elif choice == "4":
+        tasks.sort(key=lambda x: x['done'])  # not done first
+    else:
+        print("❌ Invalid choice")
+        return
+
+    print("✅ Task sorted successfully.")
+    show_tasks(tasks)
+
+
 def main():
     tasks = load_tasks()
 
@@ -88,7 +112,8 @@ def main():
         print("3. Mark Task as Done")
         print("4. Delete task")
         print("5. 🔍 Search task")
-        print("6. Exit")
+        print("6. Sort tasks")
+        print("7. Exit")
 
         choice = input("Choose an Option: ")
 
@@ -103,6 +128,8 @@ def main():
         elif choice == "5":
             search_tasks(tasks)
         elif choice == "6":
+            sort_tasks(tasks)
+        elif choice == "7":
             print("👋 Goodbye!")
             break
         else:
