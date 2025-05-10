@@ -86,13 +86,15 @@ def search_tasks(tasks):
 
 
 def sort_tasks(tasks):
-    print("Sort by:")
+    print("🔀 Sort by:")
     print("1. Date added (oldest first)")
     print("2. Date added (newest first)")
     print("3. Status (✅ done  first)")
     print("4. Status (❌ not done first)")
     print("5. Category (Categorized first")
     print("6. Category (Uncategorized first")
+    print("7. Alphabetical (A-Z)")
+    print("8. Alphabetical (Z-A)")
     choice = input("Choose an option: ")
 
     if choice == "1":
@@ -103,6 +105,14 @@ def sort_tasks(tasks):
         tasks.sort(key=lambda x: not ['done'])  # True = 1, Fakse = 0
     elif choice == "4":
         tasks.sort(key=lambda x: x['done'])  # not done first
+    elif choice == "5":
+        tasks.sort(key=lambda x: (x.get('category') is None, x.get('category', '').lower()))
+    elif choice == "6":
+        tasks.sort(key=lambda x: (x.get('category') is not None, x.get('category', '').lower()))
+    elif choice == "7":
+        tasks.sort(key=lambda x: x['task'].lower())
+    elif choice == "8":
+        tasks.sort(key=lambda x: x['task'].lower(), reverse=True)
     else:
         print("❌ Invalid choice")
         return
