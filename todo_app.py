@@ -27,7 +27,7 @@ def show_tasks(tasks):
 
 
 def add_task(tasks):
-    task_name = input("Enter ne task: ")
+    task_name = input("Enter the task: ")
     task = {
         "task": task_name,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -47,7 +47,7 @@ def mark_task_done(tasks):
             save_tasks(tasks)
             print("✅ Task marked as done.")
         else:
-            print("❌ Invald task number.")
+            print("❌ Invalid task number.")
     except ValueError:
         print("❌ Please enter a valid number.")
 
@@ -66,6 +66,18 @@ def delete_task(tasks):
         print("❌ Please enter a valid number.")
 
 
+def search_tasks(tasks):
+    keyword = input("Enter a keyword to search: ").lower()
+    found = False
+    for index, task in enumerate(tasks):
+        if keyword in task['task'].lower():
+            status = "✅" if task['done'] else "❌"
+            print(f"{index + 1}. {task['task']} - {status} - Added: {task['timestamp']}")
+            found = True
+    if not found:
+        print("🔍 No matching task found.")
+
+
 def main():
     tasks = load_tasks()
 
@@ -75,7 +87,8 @@ def main():
         print("2. View Tasks")
         print("3. Mark Task as Done")
         print("4. Delete task")
-        print("5. Exit")
+        print("5. 🔍 Search task")
+        print("6. Exit")
 
         choice = input("Choose an Option: ")
 
@@ -88,6 +101,8 @@ def main():
         elif choice == "4":
             delete_task(tasks)
         elif choice == "5":
+            search_tasks(tasks)
+        elif choice == "6":
             print("👋 Goodbye!")
             break
         else:
