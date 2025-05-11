@@ -170,7 +170,8 @@ def main():
         print("5. 🔍 Search task")
         print("6. Sort tasks")
         print("7. View task by category")
-        print("8. Exit")
+        print("8. View Due & Overdue Reminders")
+        print("9. Exit")
 
         choice = input("Choose an Option: ")
 
@@ -189,6 +190,8 @@ def main():
         elif choice == "7":
             filter_by_category(tasks)
         elif choice == "8":
+            check_reminders(tasks)
+        elif choice == "9":
             print("👋 Goodbye!")
             break
         else:
