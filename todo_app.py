@@ -58,10 +58,14 @@ def show_tasks(tasks):
         else:
             due_str = ""
 
+        #Convert string timestamp to datetime object
+        timestamp = task['timestamp']
+        if isinstance(timestamp, str):
+            timestamp = datetime.strptime((timestamp, "%Y-%m-%d %H:%M:%S"))
+
         category = task.get("category", "Uncategorized")
         #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
-        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {task['timestamp'].strftime(
-            '%Y-%m-%d %H:%M:%S')}")
+        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {task['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}")
 
 
 def add_task(tasks):
@@ -179,19 +183,28 @@ def filter_by_category(tasks):
 
 def check_reminders(tasks):
     print("\n🔔 Upcoming or Overdue Tasks:")
-    today = datetime.today()
-    found = False
+    today = datetime.today().date()
+    has_reminders = False
+
+    #found = False
     for task in tasks:
-        due_str = task.get('due')
+        due_str = task.get('due_date')
         if due_str:
             try:
-                due = datetime.strptime(due_str, "%Y-%m-%d")
-                if due <= today and not task['done']:
-                    print(f"- {task['task']} (Due: {due.date()})")
+                due_date = datetime.strptime(due_str, "%Y-%m-%d").date()
             except ValueError:
+                continue #Skip if the date format is wrong
+
+            #Show only if due today or earlier and not yet done
+            if due_date <= today and not task['done']:
+                has_reminders = True
+                print(f"- {task['task']} (category: {task.get('category', 'Uncategorized')}) | Due: {due_str}")
+
+                #print(f"- {task['task']} (Due: {due_date.date()})")
+
                 print(f"- {task['task']} (⚠️ Invalid due date format)")
 
-    if not found:
+    if not has_reminders:
         print("🎉 No upcoming or Overdue tasks.")
 
 
