@@ -6,10 +6,22 @@ TASKS_FILE = "tasks.json"
 
 
 def load_tasks():
-    if not os.path.exists(TASKS_FILE):
+    try:
+        with open("tasks.json", "r") as file:
+            tasks = json.load(file)
+            for task in tasks:
+                if task.get("timestamp"):
+                    task["timestamp"] = datetime.strptime(task["timestamp"], "%Y-%m-%d %H:%M:%S")
+                if task.get("due_date"):
+                    task["due_date"] = datetime.strptime(task["due_date"], "%Y-%m-%d")
+            return tasks
+    except FileNotFoundError:
         return []
-    with open(TASKS_FILE, "r") as file:
-        return json.load(file)
+    #if not os.path.exists(TASKS_FILE):
+
+     #   return []
+    #with open(TASKS_FILE, "r") as file:
+     #   return json.load(file)
 
 
 def save_tasks(tasks):
