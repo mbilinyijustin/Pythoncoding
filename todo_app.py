@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import shutil
 
 TASKS_FILE = "tasks.json"
 
@@ -18,13 +19,16 @@ def load_tasks():
     except FileNotFoundError:
         return []
     #if not os.path.exists(TASKS_FILE):
-
-     #   return []
+     #  return []
     #with open(TASKS_FILE, "r") as file:
-     #   return json.load(file)
+     #  return json.load(file)
 
 
 def save_tasks(tasks):
+
+    #make backup
+    if os.path.exists("tasks.json"):
+        shutil.copy("tasks.json", "tasks_backup.jason")
     def convert(task):
         task_copy = task.copy()
         if isinstance(task_copy.get("timestamp"), datetime):
