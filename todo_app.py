@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 import os
 from datetime import datetime
 
@@ -14,8 +13,19 @@ def load_tasks():
 
 
 def save_tasks(tasks):
-    with open(TASKS_FILE, 'w') as file:
-        json.dump(tasks, file, indent=4)
+    def convert(task):
+        task_copy = task.copy()
+        if isinstance(task_copy.get("timestamp"), datetime):
+            task_copy["timestamp"] = task_copy["timestamp"].strftime("%Y-%m-%d %H:%M:%S")
+        if isinstance(task_copy.get("due_date"), datetime):
+            task_copy["due_date"] = task_copy["due_date"].strftime("%Y-%m-%d")
+        return task_copy
+
+
+    with open("tasks.json", 'w') as file:
+        json.dump([convert(task) for task in tasks], file, indent=4)
+
+
 
 
 def show_tasks(tasks):
