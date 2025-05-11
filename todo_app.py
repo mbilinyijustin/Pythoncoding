@@ -143,6 +143,20 @@ def filter_by_category(tasks):
     if not found:
         print("❌ No tasks found in this category.")
 
+def check_reminders(tasks):
+    today = datetime.today().date()
+    found = False
+
+    print("🔔 Upcoming or Overdue Tasks:")
+    for task in tasks:
+        due = task.get('due_date')
+        if due and due.get() <= today and not task['done']:
+            print(f"⚠️ {task['task']} - Due: {due.strftime('%Y-%m-%d')}")
+            found = True
+
+    if not found:
+        print("🎉 No upcoming or Overdue tasks.")
+
 
 def main():
     tasks = load_tasks()
