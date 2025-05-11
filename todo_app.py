@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 import os
+from datetime import datetime
 
 TASKS_FILE = "tasks.json"
 
@@ -46,6 +47,7 @@ def add_task(tasks):
     new_task = {
         "task": task_desc,
         "category": category,
+        "due_date": due_date,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "done": False
     }
