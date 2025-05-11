@@ -19,13 +19,16 @@ def save_tasks(tasks):
 
 def show_tasks(tasks):
     if not tasks:
-        print("No tasks found,")
+        print("📭 No tasks found,")
         return
+
     for i, task in enumerate(tasks, 1):
         status = "✅ Done" if task["done"] else "❌ Note done"
+        due = task.get('due_date')
+        due_str = f" | Due: {due.strftime('%Y-%m-%d')}" if due else ""
         category = task.get("category", "Uncategorized")
         #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
-        print(f"{i}. {task['task']} ({category}) - {status} - Added: {task['timestamp']}")
+        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {task['timestamp'].strftime('%Y-%m-%d %H:%M:%s')}")
 
 
 def add_task(tasks):
