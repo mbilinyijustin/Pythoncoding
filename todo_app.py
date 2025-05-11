@@ -26,7 +26,12 @@ def show_tasks(tasks):
     for i, task in enumerate(tasks, 1):
         status = "✅ Done" if task["done"] else "❌ Note done"
         due = task.get('due_date')
-        due_str = f" | Due: {due.strftime('%Y-%m-%d')}" if due else ""
+        if due:
+            #if due is a datetime object
+            due_str = f" | Due: {due.strftime('%Y-%m-%d')}"
+        else:
+            due_str = ""
+
         category = task.get("category", "Uncategorized")
         #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
         print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {task['timestamp'].strftime('%Y-%m-%d %H:%M:%s')}")
