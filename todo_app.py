@@ -32,6 +32,13 @@ def add_task(tasks):
     #task_name = input("Enter the task: ")
     task_desc = input("Enter new task: ")
     category = input("Enter category (e.g., Work, School, Personal):")
+    due = input("Enter due date (YYYY-MM-DD) or leave blank: ")
+
+    try:
+        due_date = datetime.striptime(due, "%Y-%m-%d") if due else None
+    except ValueError:
+        print("⚠ Invalid date format. Skipping due date.")
+        due_date = None
 
     new_task = {
         "task": task_desc,
