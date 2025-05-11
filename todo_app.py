@@ -186,27 +186,27 @@ def check_reminders(tasks):
     today = datetime.today().date()
     has_reminders = False
 
-    #found = False
     for task in tasks:
-        due_str = task.get('due_date')
-        if due_str:
+        due = task.get('due_date')
+        if due:
             try:
-                due_date = datetime.strptime(due_str, "%Y-%m-%d").date()
+                # Convert string to date if needed
+                if isinstance(due, str):
+                    due_date = datetime.strptime(due, "%Y-%m-%d").date()
+                elif isinstance(due, datetime):
+                    due_date = due.date()
+                else:
+                    continue  # Skip if not a valid type
             except ValueError:
-                continue #Skip if the date format is wrong
+                print(f"- {task['task']} (⚠️ Invalid due date format)")
+                continue
 
-            #Show only if due today or earlier and not yet done
             if due_date <= today and not task['done']:
                 has_reminders = True
-                print(f"- {task['task']} (category: {task.get('category', 'Uncategorized')}) | Due: {due_str}")
-
-                #print(f"- {task['task']} (Due: {due_date.date()})")
-
-                print(f"- {task['task']} (⚠️ Invalid due date format)")
+                print(f"- {task['task']} (category: {task.get('category', 'Uncategorized')}) | Due: {due_date}")
 
     if not has_reminders:
         print("🎉 No upcoming or Overdue tasks.")
-
 
 def main():
     tasks = load_tasks()
