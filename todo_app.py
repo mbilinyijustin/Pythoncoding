@@ -38,7 +38,7 @@ def add_task(tasks):
     due = input("Enter due date (YYYY-MM-DD) or leave blank: ")
 
     try:
-        due_date = datetime.striptime(due, "%Y-%m-%d") if due else None
+        due_date = datetime.strptime(due, "%Y-%m-%d") if due else None
     except ValueError:
         print("⚠ Invalid date format. Skipping due date.")
         due_date = None
