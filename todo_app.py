@@ -201,27 +201,31 @@ def check_reminders(tasks):
     has_reminders = False
 
     for task in tasks:
-        due = task.get('due_date')
-        if due:
-            try:
-                # Convert string to date if needed
-                if isinstance(due, str):
-                    due_date = datetime.strptime(due, "%Y-%m-%d").date()
-                elif isinstance(due, datetime):
-                    due_date = due.date()
-                else:
-                    continue  # Skip if not a valid type
-            except ValueError:
-                print(f"- {task['task']} (⚠️ Invalid due date format)")
-                continue
+        if task.get('done'):
+            continue  # Skip completed tasks
 
-            if due_date <= today and not task['done']:
-                has_reminders = True
-                print(f"- {task['task']} (category: {task.get('category', 'Uncategorized')}) | Due: {due_date}")
+        due = task.get('due_date')
+        if not due:
+            continue  # Skip if no due date
+
+        try:
+            # Convert string to date if needed
+            if isinstance(due, str):
+                due_date = datetime.strptime(due, "%Y-%m-%d").date()
+            elif isinstance(due, datetime):
+                due_date = due.date()
+            else:
+                continue  # Skip invalid types
+        except ValueError:
+            print(f"- {task['task']} (⚠️ Invalid due date format)")
+            continue
+
+        if due_date <= today:
+            has_reminders = True
+            print(f"- {task['task']} (Category: {task.get('category', 'Uncategorized')}) | Due: {due_date.strftime('%Y-%m-%d')}")
 
     if not has_reminders:
         print("🎉 No upcoming or Overdue tasks.")
-
 
 def main():
     tasks = load_tasks()
