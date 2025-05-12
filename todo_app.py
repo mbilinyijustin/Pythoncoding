@@ -290,57 +290,71 @@ def check_reminders(tasks):
 
 
 def main():
-    print("📜 Welcome to the Multi-User To-Do List")
-    loadi_tasks()
-    tasks = load_tasks()
+    print("Welcome to Task Manager 🧠")
+    current_user = None
+
+    while not current_user:
+        print("\n1. Register")
+        print("2. Login")
+        print("3. Exit")
+        choice = input("Choose an option: ").strip()
+
+        if choice == "1":
+            current_user = register_user()
+        elif choice == "2":
+            current_user = login_user()
+        elif choice == "3":
+            print("👋 Goodbye!")
+            return
+        else:
+            print("❌ Invalid choice.")
+
+    tasks = load_tasks(current_user)
 
     while True:
-        print("\n📜 TO-DO LIST MENU:")
-        print("\na. Login\nb. Register\nc. Exit")
-        print("1. Add Task")
-        print("2. View Tasks")
+        print(f"\n📋 Main Menu for {current_user}")
+        print("1. Show Tasks")
+        print("2. Add Task")
         print("3. Mark Task as Done")
-        print("4. Delete task")
-        print("5. 🔍 Search task")
-        print("6. Sort tasks")
-        print("7. View task by category")
-        print("8. View Due & Overdue Reminders")
-        print("9. Exit")
+        print("4. Delete Task")
+        print("5. Search Tasks")
+        print("6. Sort Tasks")
+        print("7. Filter by Category")
+        print("8. Check Reminders")
+        print("9. Logout")
+        print("0. Exit")
 
-        choice = input("Choose an Option: ")
+        option = input("Choose an action: ").strip()
 
-        if choice == "a":
-            username = login_user()
-            if username:
-                break
-        elif choice == "b":
-            username = register_user()
-            if username:
-                break
-        elif choice == "c":
-            return
-
-        elif choice == "1":
-            add_task(tasks)
-        elif choice == "2":
+        if option == "1":
             show_tasks(tasks)
-        elif choice == "3":
+        elif option == "2":
+            add_task(tasks)
+            save_tasks(current_user, tasks)
+        elif option == "3":
             mark_task_done(tasks)
-        elif choice == "4":
+            save_tasks(current_user, tasks)
+        elif option == "4":
             delete_task(tasks)
-        elif choice == "5":
+            save_tasks(current_user, tasks)
+        elif option == "5":
             search_tasks(tasks)
-        elif choice == "6":
+        elif option == "6":
             sort_tasks(tasks)
-        elif choice == "7":
+            save_tasks(current_user, tasks)
+        elif option == "7":
             filter_by_category(tasks)
-        elif choice == "8":
+        elif option == "8":
             check_reminders(tasks)
-        elif choice == "9":
+        elif option == "9":
+            print("🔐 Logged out.")
+            main()  # Go back to log in/register
+            return
+        elif option == "0":
             print("👋 Goodbye!")
             break
         else:
-            print("❌ Invalid choice. Please try again.")
+            print("❌ Invalid option.")
 
 
 if __name__ == "__main__":
