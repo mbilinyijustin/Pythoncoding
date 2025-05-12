@@ -18,17 +18,17 @@ def load_tasks():
             return tasks
     except FileNotFoundError:
         return []
-    #if not os.path.exists(TASKS_FILE):
-     #  return []
-    #with open(TASKS_FILE, "r") as file:
-     #  return json.load(file)
+    # if not os.path.exists(TASKS_FILE):
+    #  return []
+    # with open(TASKS_FILE, "r") as file:
+    #  return json.load(file)
 
 
 def save_tasks(tasks):
-
-    #make backup
+    # make backup
     if os.path.exists("tasks.json"):
         shutil.copy("tasks.json", "tasks_backup.jason")
+
     def convert(task):
         task_copy = task.copy()
         if isinstance(task_copy.get("timestamp"), datetime):
@@ -37,14 +37,12 @@ def save_tasks(tasks):
             task_copy["due_date"] = task_copy["due_date"].strftime("%Y-%m-%d")
         return task_copy
 
-
     with open("tasks.json", 'w') as file:
         json.dump([convert(task) for task in tasks], file, indent=4)
 
 
-
-
 def show_tasks(tasks):
+    global timestamp_str
     print("\n 📝 Your tasks:")
     if not tasks:
         print("📭 No tasks found,")
@@ -53,34 +51,40 @@ def show_tasks(tasks):
     for i, task in enumerate(tasks, 1):
         status = "✅ Done" if task["done"] else "❌ Note done"
         due = task.get('due_date')
+        category = task.get("category", "Uncategorized")
+
         if due:
-            #if due is a datetime object
+            # if due is a datetime object
             due_str = f" | Due: {due.strftime('%Y-%m-%d')}"
         else:
             due_str = ""
 
-        #Convert string timestamp to datetime object
+            # Fix timestamp formatting
+            try:
+                timestamp = datetime.strptime(task['timestamp'], "%Y-%m-%d %H:%M:%S")
+                timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            except (KeyError, ValueError):
+                timestamp_str = "Unknown"
+
+        # Convert string timestamp to datetime object
         timestamp = task['timestamp']
         if isinstance(timestamp, str):
-            timestamp = datetime.strptime(task['timestamp'], "%Y-%m-%d %H:%M:%S")
+            datetime.strptime(task['timestamp'], "%Y-%m-%d %H:%M:%S")
 
-
-        category = task.get("category", "Uncategorized")
-        #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
-        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {task['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {timestamp_str}")
 
 
 def add_task(tasks):
-    #task_name = input("Enter the task: ")
+    # task_name = input("Enter the task: ")
     task_desc = input("Enter new task: ").strip()
     category = input("Enter category (e.g., Work, School, Personal):").strip()
     due = input("Enter due date (YYYY-MM-DD) or leave blank: ").strip()
 
-    #check for duplicate task
+    # check for duplicate task
     for task in tasks:
         if task['task'].lower() == task_desc.lower() and task.get('category', '').lower() == category.lower():
             print("⚠️ Task already exists in this category!")
-            return  #Exit without adding
+            return  # Exit without adding
 
     try:
         due_date = datetime.strptime(due, "%Y-%m-%d") if due else None
@@ -181,13 +185,14 @@ def filter_by_category(tasks):
     keyword = input("Enter category name to filter: ")
     found = False
     for i, task in enumerate(tasks):
-        category = task.get('category', 'Uncategorized')  #Default if key is missing
+        category = task.get('category', 'Uncategorized')  # Default if key is missing
         if category.lower() == keyword.lower():
             status = "✅" if task['done'] else "❌"
             print(f"{i + 1}. {task['task']} ({category}) - {status} - Added: {task['timestamp']}")
             found = True
     if not found:
         print("❌ No tasks found in this category.")
+
 
 def check_reminders(tasks):
     print("\n🔔 Upcoming or Overdue Tasks:")
@@ -215,6 +220,7 @@ def check_reminders(tasks):
 
     if not has_reminders:
         print("🎉 No upcoming or Overdue tasks.")
+
 
 def main():
     tasks = load_tasks()
