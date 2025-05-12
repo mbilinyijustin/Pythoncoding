@@ -1,6 +1,5 @@
 import json
 import os
-from datetime import datetime
 import shutil
 
 TASKS_FILE = "tasks.json"
@@ -43,6 +42,7 @@ def save_tasks(tasks):
 
 from datetime import datetime
 
+
 def show_tasks(tasks):
     print("\n 📝 Your tasks:")
     if not tasks:
@@ -74,6 +74,7 @@ def show_tasks(tasks):
                 pass  # Ignore if not a valid date string
 
         print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {timestamp_str}")
+
 
 def add_task(tasks):
     # task_name = input("Enter the task: ")
@@ -198,7 +199,7 @@ def filter_by_category(tasks):
 def check_reminders(tasks):
     print("\n🔔 Upcoming or Overdue Tasks:")
     today = datetime.today().date()
-    has_reminders = False
+    due_count = 0
 
     for task in tasks:
         if task.get('done'):
@@ -206,26 +207,31 @@ def check_reminders(tasks):
 
         due = task.get('due_date')
         if not due:
-            continue  # Skip if no due date
+            continue  # Skip tasks without a due date
 
         try:
-            # Convert string to date if needed
+            # Handle due_date being either a string or datetime object
             if isinstance(due, str):
                 due_date = datetime.strptime(due, "%Y-%m-%d").date()
             elif isinstance(due, datetime):
                 due_date = due.date()
             else:
-                continue  # Skip invalid types
+                continue
         except ValueError:
             print(f"- {task['task']} (⚠️ Invalid due date format)")
             continue
 
         if due_date <= today:
-            has_reminders = True
-            print(f"- {task['task']} (Category: {task.get('category', 'Uncategorized')}) | Due: {due_date.strftime('%Y-%m-%d')}")
+            due_count += 1
+            print(
+                f"- {task['task']} (Category: {task.get('category', 'Uncategorized')}) | Due: {due_date.strftime(
+                    '%Y-%m-%d')}")
 
-    if not has_reminders:
+    if due_count == 0:
         print("🎉 No upcoming or Overdue tasks.")
+    else:
+        print(f"\n📌 Total Due or Overdue Tasks: {due_count}")
+
 
 def main():
     tasks = load_tasks()
