@@ -70,9 +70,15 @@ def show_tasks(tasks):
 
 def add_task(tasks):
     #task_name = input("Enter the task: ")
-    task_desc = input("Enter new task: ")
-    category = input("Enter category (e.g., Work, School, Personal):")
-    due = input("Enter due date (YYYY-MM-DD) or leave blank: ")
+    task_desc = input("Enter new task: ").strip()
+    category = input("Enter category (e.g., Work, School, Personal):").strip()
+    due = input("Enter due date (YYYY-MM-DD) or leave blank: ").strip()
+
+    #check for duplicate task
+    for task in tasks:
+        if task['task'].lower() == task_desc.lower() and task.get('category', '').lower() == category.lower():
+            print("⚠️ Task already exists in this category!")
+            return  #Exit without adding
 
     try:
         due_date = datetime.strptime(due, "%Y-%m-%d") if due else None
