@@ -17,6 +17,7 @@ def save_users(users):
     with open(USERS_FILE, "w") as f:
         json.dump(users, f)
 
+
 def register_user():
     users = load_users()
     username = input("Choose a username: ")
@@ -29,6 +30,7 @@ def register_user():
     print("✅ User registered successfully!")
     return username
 
+
 def login_user():
     users = load_users()
     username = input("Enter username: ")
@@ -39,6 +41,9 @@ def login_user():
     else:
         print("🚫 Invalid username or password.")
         return None
+
+def get_user_task_file(username):
+    return f"{username}_tasks.json"
 
 def load_tasks():
     try:
