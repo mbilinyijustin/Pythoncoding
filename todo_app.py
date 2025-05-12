@@ -17,6 +17,17 @@ def save_users(users):
     with open(USERS_FILE, "w") as f:
         json.dump(users, f)
 
+def register_user():
+    users = load_users()
+    username = input("Choose a username: ")
+    if username in users:
+        print("🚫 Username already exists!")
+        return None
+    password = input("Choose a password: ")
+    users[username] = password
+    save_users(users)
+    print("✅ User registered successfully!")
+    return username
 
 def load_tasks():
     try:
