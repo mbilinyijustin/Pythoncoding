@@ -61,7 +61,8 @@ def show_tasks(tasks):
         #Convert string timestamp to datetime object
         timestamp = task['timestamp']
         if isinstance(timestamp, str):
-            timestamp = datetime.strptime((timestamp, "%Y-%m-%d %H:%M:%S"))
+            timestamp = datetime.strptime(task['timestamp'], "%Y-%m-%d %H:%M:%S")
+
 
         category = task.get("category", "Uncategorized")
         #print(f"{i}. {task['task']} ({status}) - Added: {task['timestamp']}")
