@@ -45,6 +45,7 @@ def save_tasks(tasks):
 
 
 def show_tasks(tasks):
+    print("\n 📝 Your tasks:")
     if not tasks:
         print("📭 No tasks found,")
         return
