@@ -55,6 +55,10 @@ def load_tasks(username):
     return []
 
 
+def save_tasks(username, tasks):
+    filename = get_user_task_file(username)
+    with open(filename, "w") as f:
+        json.dump(tasks, f, indent=2)
 
 
 def loadi_tasks():
@@ -75,7 +79,7 @@ def loadi_tasks():
     #  return json.load(file)
 
 
-def save_tasks(tasks):
+def savee_tasks(tasks):
     # make backup
     if os.path.exists("tasks.json"):
         shutil.copy("tasks.json", "tasks_backup.jason")
@@ -155,7 +159,7 @@ def add_task(tasks):
     }
 
     tasks.append(new_task)
-    save_tasks(tasks)
+    savee_tasks(tasks)
     print("✅ Task added.")
 
 
@@ -165,7 +169,7 @@ def mark_task_done(tasks):
         num = int(input("Enter task number to mark as done:"))
         if 0 < num <= len(tasks):
             tasks[num - 1]["done"] = True
-            save_tasks(tasks)
+            savee_tasks(tasks)
             print("✅ Task marked as done.")
         else:
             print("❌ Invalid task number.")
@@ -179,7 +183,7 @@ def delete_task(tasks):
         num = int(input("Enter task number to delete: "))
         if 0 < num <= len(tasks):
             removed = tasks.pop(num - 1)
-            save_tasks(tasks)
+            savee_tasks(tasks)
             print(f"🚮 Deleted task: {removed['task']}")
         else:
             print("❌ Invalid task number.")
