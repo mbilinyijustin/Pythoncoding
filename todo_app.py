@@ -29,6 +29,17 @@ def register_user():
     print("✅ User registered successfully!")
     return username
 
+def login_user():
+    users = load_users()
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+    if users.get(username) == password:
+        print(f"✅ welcome back, {username}!")
+        return username
+    else:
+        print("🚫 Invalid username or password.")
+        return None
+
 def load_tasks():
     try:
         with open("tasks.json", "r") as file:
