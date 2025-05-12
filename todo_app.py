@@ -290,10 +290,13 @@ def check_reminders(tasks):
 
 
 def main():
-    tasks = loadi_tasks()
+    print("📜 Welcome to the Multi-User To-Do List")
+    loadi_tasks()
+    tasks = load_tasks()
 
     while True:
         print("\n📜 TO-DO LIST MENU:")
+        print("\na. Login\nb. Register\nc. Exit")
         print("1. Add Task")
         print("2. View Tasks")
         print("3. Mark Task as Done")
@@ -306,7 +309,18 @@ def main():
 
         choice = input("Choose an Option: ")
 
-        if choice == "1":
+        if choice == "a":
+            username = login_user()
+            if username:
+                break
+        elif choice == "b":
+            username = register_user()
+            if username:
+                break
+        elif choice == "c":
+            return
+
+        elif choice == "1":
             add_task(tasks)
         elif choice == "2":
             show_tasks(tasks)
