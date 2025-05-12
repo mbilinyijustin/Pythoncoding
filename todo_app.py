@@ -42,10 +42,22 @@ def login_user():
         print("🚫 Invalid username or password.")
         return None
 
+
 def get_user_task_file(username):
     return f"{username}_tasks.json"
 
-def load_tasks():
+
+def load_tasks(username):
+    filename = get_user_task_file(username)
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            return json.load(f)
+    return []
+
+
+
+
+def loadi_tasks():
     try:
         with open("tasks.json", "r") as file:
             tasks = json.load(file)
@@ -274,7 +286,7 @@ def check_reminders(tasks):
 
 
 def main():
-    tasks = load_tasks()
+    tasks = loadi_tasks()
 
     while True:
         print("\n📜 TO-DO LIST MENU:")
