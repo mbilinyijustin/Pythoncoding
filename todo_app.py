@@ -3,7 +3,13 @@ import os
 import shutil
 
 TASKS_FILE = "tasks.json"
+USERS_FILE = "users.json"
 
+def load_users():
+    if os.path.exists(USERS_FILE):
+        with open(USERS_FILE, "r") as f:
+            return json.load(f)
+    return {}
 
 def load_tasks():
     try:
