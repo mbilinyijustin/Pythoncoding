@@ -52,15 +52,19 @@ def load_tasks(username):
         with open(f"{username}_tasks.json", "r") as f:
             tasks = json.load(f)
             for task in tasks:
+                # Ensure the 'done' key exists
+                if "done" not in task:
+                    task["done"] = False
+
+                # Convert due_date string to datetime if valid
                 if task.get("due_date"):
                     try:
                         task["due_date"] = datetime.fromisoformat(task["due_date"])
                     except ValueError:
-                        pass
+                        print(f"⚠️ Warning: Invalid date format for task: {task.get('task')}")
             return tasks
     except (FileNotFoundError, json.JSONDecodeError):
         return []
-
 
 def save_tasks(username, tasks):
     serializable_tasks = []
