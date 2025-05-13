@@ -48,11 +48,15 @@ def get_user_task_file(username):
 
 
 def load_tasks(username):
-    filename = get_user_task_file(username)
-    if os.path.exists(filename):
-        with open(filename, "r") as f:
-            return json.load(f)
-    return []
+    try:
+        with open(f"{username}_tasks.json", "r") as f:
+            tasks = json.load(f)
+            for task in tasks:
+                if task.get("due_date"):
+                    task["due_date"] = datetime.fromisoformat(task["due_date"])
+            return tasks
+    except FileNotFoundError:
+        return []
 
 
 def save_tasks(username, tasks):
