@@ -56,14 +56,21 @@ def load_tasks(username):
 
 
 def save_tasks(username, tasks):
-    filename = get_user_task_file(username)
-    with open(filename, "w") as f:
-        json.dump(tasks, f, indent=2)
+    serializable_tasks = []
+    for task in tasks:
+        task_copy = task.copy()
+        if isinstance(task_copy.get("due_date"), datetime):
+            task_copy["due_date"] = task_copy["due_date"].isoformat()
+        serializable_tasks.append(task_copy)
+
+    #filename = get_user_task_file(username)
+    with open(f"{username}_tasks.json", "w") as f:
+        json.dump(serializable_tasks, f, indent=2)
 
 
 def loadi_tasks():
     try:
-        with open("tasks.json", "r") as file:
+        with open(f"", "r") as file:
             tasks = json.load(file)
             for task in tasks:
                 if task.get("timestamp"):
