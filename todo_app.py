@@ -124,31 +124,33 @@ def show_tasks(tasks):
         return
 
     for i, task in enumerate(tasks, 1):
-        status = "✅ Done" if task["done"] else "❌ Note done"
-        due = task.get('due_date')
+        # Handle missing 'done' key safely
+        status = "✅ Done" if task.get("done", False) else "❌ Not done"
+
+        # Category fallback
         category = task.get("category", "Uncategorized")
 
-        # Always try to get the timestamp safely
-        timestamp_str = "Unknown"
-        try:
-            timestamp = datetime.strptime(task['timestamp'], "%Y-%m-%d %H:%M:%S")
-            timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
-        except (KeyError, ValueError, TypeError):
-            pass  # Leave as "Unknown" if something goes wrong
-
-        # Handle due date formatting
+        # Handle due date (can be string or datetime)
+        due = task.get('due_date')
         due_str = ""
         if isinstance(due, datetime):
             due_str = f" | Due: {due.strftime('%Y-%m-%d')}"
         elif isinstance(due, str):
             try:
-                parsed_due = datetime.strptime(due, "%Y-%m-%d")
+                parsed_due = datetime.strptime(due.strip(), "%Y-%m-%d")
                 due_str = f" | Due: {parsed_due.strftime('%Y-%m-%d')}"
             except ValueError:
-                pass  # Ignore if not a valid date string
+                pass  # Invalid date string, ignore
 
-        print(f"{i}. {task['task']} ({category}) - {status}{due_str} - Added: {timestamp_str}")
+        # Handle timestamp
+        timestamp_str = "Unknown"
+        try:
+            timestamp = datetime.strptime(task.get('timestamp', ""), "%Y-%m-%d %H:%M:%S")
+            timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            pass  # Leave timestamp_str as "Unknown"
 
+        print(f"{i}. {task.get('task', 'Untitled')} ({category}) - {status}{due_str} - Added: {timestamp_str}")
 
 def add_task(tasks):
     # task_name = input("Enter the task: ")
