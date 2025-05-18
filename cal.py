@@ -25,3 +25,6 @@ while True:
 
     choice = input("Enter your choice (1-5):")
 
+    if choice == '5':
+        print("Existing calculator. Goodbye!👋")
+        break
