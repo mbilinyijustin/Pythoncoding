@@ -1,4 +1,5 @@
 import math
+from unittest import result
 
 
 def add(x, y):
@@ -50,9 +51,9 @@ def cosine(x):
 def tangent(x):
     return math.tan(math.radians(x))
 
-#List to store history
-history = []
 
+# List to store history
+history = []
 
 while True:
     print("\n--- Scientific Calculator ---")
@@ -75,6 +76,13 @@ while True:
     if choice == '13':
         print("Exiting calculator. Goodbye!")
         break
+    elif choice == '12':
+        print("\n--- Calculator History ---")
+        if not history:
+            print("No Calculation yet.")
+        else:
+            for item in history:
+                print(item)
 
     if choice in ['1', '2', '3', '4', '5', '7']:
         num1 = float(input("Enter first number: "))
@@ -82,16 +90,22 @@ while True:
 
         if choice == '1':
             print("Result:", add(num1, num2))
+            history.append(f"{num1} + {num2} = {result}")
         elif choice == '2':
             print("Result:", subtract(num1, num2))
+            history.append(f"{num1} - {num2} = {result}")
         elif choice == '3':
             print("Result:", multiply(num1, num2))
+            history.append(f"{num1} * {num2} = {result}")
         elif choice == '4':
             print("Result:", divide(num1, num2))
+            history.append(f"{num1} / {num2} = {result}")
         elif choice == '5':
             print("Result:", power(num1, num2))
+            history.append(f"{num1} ^ {num2} = {result}")
         elif choice == '7':
             print("Result:", modulus(num1, num2))
+            history.append(f"{num1} % {num2} = {result}")
 
     elif choice in ['6', '8', '9', '10', '11']:
         num = float(input("Enter number: "))
