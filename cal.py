@@ -18,8 +18,13 @@ def divide(x, y):
         return "Error! Cannot divide zero."
     return x / y
 
+def modulus(x, y):
+    return x % y
+
+
 def power(x, y):
     return x ** y
+
 
 def square_root(x):
     if x < 0:
@@ -43,7 +48,7 @@ while True:
         print("Existing calculator. Goodbye!👋")
         break
 
-    if choice in ['1', '2', '3', '4', '5',]:
+    if choice in ['1', '2', '3', '4', '5', ]:
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
