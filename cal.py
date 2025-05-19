@@ -62,13 +62,13 @@ while True:
     print("11. Tangent (tan x)")
     print("12. Exit")
 
-    choice = input("Enter your choice (1-7):")
+    choice = input("Enter your choice (1-12):")
 
-    if choice == '7':
+    if choice == '12':
         print("Existing calculator. Goodbye!👋")
         break
 
-    if choice in ['1', '2', '3', '4', '5', ]:
+    if choice in ['1', '2', '3', '4', '5', '7']:
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
@@ -82,6 +82,8 @@ while True:
             print("Result:", divide(num1, num2))
         elif choice == '5':
             print("Result:", power(num1, num2))
+        elif choice == '7':
+            print("Result:", modulus(num1, num2))
     elif choice == '6':
         num = float(input("Enter Number: "))
         print("Result:", square_root(num))
