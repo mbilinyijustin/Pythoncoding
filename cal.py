@@ -29,6 +29,9 @@ def logarithm(x):
 def sine(x):
     return math.sin(math.radians(x))
 
+def cosine(x):
+    return math.cos(math.radians(x))
+
 
 def power(x, y):
     return x ** y
