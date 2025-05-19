@@ -33,15 +33,17 @@ while True:
     print("2. Subtract")
     print("3. Multiply")
     print("4. Divide")
-    print("5. Exit")
+    print("5. Power (x^y)")
+    print("6. Square Root (√x)")
+    print("7. Exit")
 
-    choice = input("Enter your choice (1-5):")
+    choice = input("Enter your choice (1-7):")
 
-    if choice == '5':
+    if choice == '7':
         print("Existing calculator. Goodbye!👋")
         break
 
-    if choice in ['1', '2', '3', '4']:
+    if choice in ['1', '2', '3', '4', '5',]:
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
@@ -53,5 +55,7 @@ while True:
             print("Result:", multiply(num1, num2))
         elif choice == '4':
             print("Result:", divide(num1, num2))
+        elif choice == '5':
+            print("Result:", power(num1, num2))
     else:
         print("Invalid input. Please enter a number between 1 and 5")
