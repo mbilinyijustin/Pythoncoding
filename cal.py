@@ -26,6 +26,9 @@ def logarithm(x):
         return "Error! Logarithm undefined for zero or negative numbers"
     return math.log10(x)
 
+def sine(x):
+    return math.sin(math.radians(x))
+
 
 def power(x, y):
     return x ** y
