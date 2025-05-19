@@ -1,27 +1,21 @@
 import math
 
-
 def add(x, y):
     return x + y
-
 
 def subtract(x, y):
     return x - y
 
-
 def multiply(x, y):
     return x * y
 
-
 def divide(x, y):
     if y == 0:
-        return "Error! Cannot divide zero."
+        return "Error! Cannot divide by zero."
     return x / y
-
 
 def power(x, y):
     return x ** y
-
 
 def square_root(x):
     if x < 0:
@@ -33,7 +27,7 @@ def modulus(x, y):
 
 def logarithm(x):
     if x <= 0:
-        return "Error! Logarithm undefined for zero or negative numbers"
+        return "Error! Logarithm undefined for zero or negative numbers."
     return math.log10(x)
 
 def sine(x):
@@ -45,10 +39,8 @@ def cosine(x):
 def tangent(x):
     return math.tan(math.radians(x))
 
-
-
 while True:
-    print("\n--- Simple Calculator ---")
+    print("\n--- Scientific Calculator ---")
     print("1. Add")
     print("2. Subtract")
     print("3. Multiply")
@@ -58,14 +50,14 @@ while True:
     print("7. Modulus (x % y)")
     print("8. Logarithm (log base 10)")
     print("9. Sine (sin x)")
-    print("10. cosine (cos x)")
+    print("10. Cosine (cos x)")
     print("11. Tangent (tan x)")
     print("12. Exit")
 
-    choice = input("Enter your choice (1-12):")
+    choice = input("Enter your choice (1-12): ")
 
     if choice == '12':
-        print("Existing calculator. Goodbye!👋")
+        print("Exiting calculator. Goodbye!")
         break
 
     if choice in ['1', '2', '3', '4', '5', '7']:
@@ -85,8 +77,8 @@ while True:
         elif choice == '7':
             print("Result:", modulus(num1, num2))
 
-    elif choice == ['6', '8', '9', '10', '11']:
-        num = float(input("Enter Number: "))
+    elif choice in ['6', '8', '9', '10', '11']:
+        num = float(input("Enter number: "))
 
         if choice == '6':
             print("Result:", square_root(num))
