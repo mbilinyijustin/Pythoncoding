@@ -109,24 +109,41 @@ while True:
 
         print("Result:", result)
 
+
     elif choice in ['6', '8', '9', '10', '11']:
+
         num = float(input("Enter number: "))
 
         if choice == '6':
-            print("Result:", square_root(num))
+
+            result = square_root(num)
+
             history.append(f"√{num} = {result}")
+
         elif choice == '8':
-            print("Result:", logarithm(num))
+
+            result = logarithm(num)
+
             history.append(f"log({num}) = {result}")
+
         elif choice == '9':
-            print("Result:", sine(num))
+
+            result = sine(num)
+
             history.append(f"sin({num}°) = {result}")
+
         elif choice == '10':
-            print("Result:", cosine(num))
+
+            result = cosine(num)
+
             history.append(f"cos({num}°) = {result}")
+
         elif choice == '11':
-            print("Result:", tangent(num))
+
+            result = tangent(num)
+
             history.append(f"tan({num}°) = {result}")
+
         print("Result:", result)
     else:
         print("Invalid input. Please enter a number between 1 and 12.")
