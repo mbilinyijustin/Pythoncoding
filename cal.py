@@ -18,6 +18,16 @@ def divide(x, y):
         return "Error! Cannot divide zero."
     return x / y
 
+
+def power(x, y):
+    return x ** y
+
+
+def square_root(x):
+    if x < 0:
+        return "Error! Cannot take square root of negative number."
+    return math.sqrt(x)
+
 def modulus(x, y):
     return x % y
 
@@ -35,14 +45,6 @@ def cosine(x):
 def tangent(x):
     return math.tan(math.radians(x))
 
-def power(x, y):
-    return x ** y
-
-
-def square_root(x):
-    if x < 0:
-        return "Error! Cannot take square root of negative number."
-    return math.sqrt(x)
 
 
 while True:
@@ -53,7 +55,12 @@ while True:
     print("4. Divide")
     print("5. Power (x^y)")
     print("6. Square Root (√x)")
-    print("7. Exit")
+    print("7. Modulus (x % y)")
+    print("8. Logarithm (log base 10)")
+    print("9. Sine (sin x)")
+    print("10. cosine (cos x)")
+    print("11. Tangent (tan x)")
+    print("12. Exit")
 
     choice = input("Enter your choice (1-7):")
 
