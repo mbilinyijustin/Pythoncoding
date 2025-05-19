@@ -57,5 +57,8 @@ while True:
             print("Result:", divide(num1, num2))
         elif choice == '5':
             print("Result:", power(num1, num2))
+    elif choice == '6':
+        num = float(input("Enter Number: "))
+        print("Result:", square_root(num))
     else:
         print("Invalid input. Please enter a number between 1 and 5")
