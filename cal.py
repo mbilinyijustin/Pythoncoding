@@ -32,6 +32,8 @@ def sine(x):
 def cosine(x):
     return math.cos(math.radians(x))
 
+def tangent(x):
+    return math.tan(math.radians(x))
 
 def power(x, y):
     return x ** y
