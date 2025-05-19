@@ -1,7 +1,6 @@
 import math
 
 
-
 def add(x, y):
     return x + y
 
@@ -87,6 +86,7 @@ while True:
     if choice in ['1', '2', '3', '4', '5', '7']:
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
+        result = None  # Prevent "undefined" error
 
         if choice == '1':
             result = add(num1, num2)
@@ -106,13 +106,14 @@ while True:
         elif choice == '7':
             result = modulus(num1, num2)
             history.append(f"{num1} % {num2} = {result}")
-
         print("Result:", result)
+
 
 
     elif choice in ['6', '8', '9', '10', '11']:
 
         num = float(input("Enter number: "))
+        result = None  # Prevent "undefined" error
 
         if choice == '6':
 
