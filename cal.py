@@ -1,5 +1,5 @@
 import math
-from unittest import result
+
 
 
 def add(x, y):
@@ -89,23 +89,25 @@ while True:
         num2 = float(input("Enter second number: "))
 
         if choice == '1':
-            print("Result:", add(num1, num2))
+            result = add(num1, num2)
             history.append(f"{num1} + {num2} = {result}")
         elif choice == '2':
-            print("Result:", subtract(num1, num2))
+            result = subtract(num1, num2)
             history.append(f"{num1} - {num2} = {result}")
         elif choice == '3':
-            print("Result:", multiply(num1, num2))
+            result = multiply(num1, num2)
             history.append(f"{num1} * {num2} = {result}")
         elif choice == '4':
-            print("Result:", divide(num1, num2))
+            result = divide(num1, num2)
             history.append(f"{num1} / {num2} = {result}")
         elif choice == '5':
-            print("Result:", power(num1, num2))
+            result = power(num1, num2)
             history.append(f"{num1} ^ {num2} = {result}")
         elif choice == '7':
-            print("Result:", modulus(num1, num2))
+            result = modulus(num1, num2)
             history.append(f"{num1} % {num2} = {result}")
+
+        print("Result:", result)
 
     elif choice in ['6', '8', '9', '10', '11']:
         num = float(input("Enter number: "))
