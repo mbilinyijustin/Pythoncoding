@@ -21,6 +21,11 @@ def divide(x, y):
 def modulus(x, y):
     return x % y
 
+def logarithm(x):
+    if x <= 0:
+        return "Error! Logarithm undefined for zero or negative numbers"
+    return math.log10(x)
+
 
 def power(x, y):
     return x ** y
