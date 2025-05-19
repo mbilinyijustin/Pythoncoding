@@ -84,8 +84,19 @@ while True:
             print("Result:", power(num1, num2))
         elif choice == '7':
             print("Result:", modulus(num1, num2))
-    elif choice == '6':
+
+    elif choice == ['6', '8', '9', '10', '11']:
         num = float(input("Enter Number: "))
-        print("Result:", square_root(num))
+
+        if choice == '6':
+            print("Result:", square_root(num))
+        elif choice == '8':
+            print("Result:", logarithm(num))
+        elif choice == '9':
+            print("Result:", sine(num))
+        elif choice == '10':
+            print("Result:", cosine(num))
+        elif choice == '11':
+            print("Result:", tangent(num))
     else:
-        print("Invalid input. Please enter a number between 1 and 5")
+        print("Invalid input. Please enter a number between 1 and 12.")
