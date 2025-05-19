@@ -15,6 +15,10 @@ def divide(x, y):
         return "Error! Cannot divide zero."
     return x / y
 
+def power(x, y):
+    return x ** y
+
+
 while True:
     print("\n--- Simple Calculator ---")
     print("1. Add")
