@@ -1,3 +1,6 @@
+import math
+
+
 def add(x, y):
     return x + y
 
@@ -17,6 +20,11 @@ def divide(x, y):
 
 def power(x, y):
     return x ** y
+
+def square_root(x):
+    if x < 0:
+        return "Error! Cannot take square root of negative number."
+    return math.sqrt(x)
 
 
 while True:
