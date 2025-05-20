@@ -85,7 +85,7 @@ def button_click(value):
         clear()
     elif value == '=':
         calculate()
-    elif value == 'Clear History':
+    elif value == 'C H':
         clear_history()
     else:
         # For math functions add parentheses automatically
