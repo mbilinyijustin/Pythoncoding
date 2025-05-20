@@ -102,6 +102,18 @@ for btn in buttons:
         row_val += 1
 
 
+# History text box
+history_label = tk.Label(root, text="History", font=("Arial", 14))
+history_label.grid(row=row_val, column=0, columnspan=4)
+
+history_text = tk.Text(root, height=10, width=35, font=("Arial", 12))
+history_text.grid(row=row_val+1, column=0, columnspan=4, padx=10, pady=5)
+
+update_history()
+
+root.mainloop()
+
+
 
 def add(x, y):
     return x + y
