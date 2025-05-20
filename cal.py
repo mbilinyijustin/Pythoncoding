@@ -62,6 +62,16 @@ entry = tk.Entry(root, textvariable=expression, font=("Arial", 20), bd=5, relief
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 
+buttons = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', '.', '^', '+',
+    '√', 'log', 'sin', 'cos',
+    'tan', 'C', '=', 'Clear History'
+]
+
+
 
 
 def add(x, y):
