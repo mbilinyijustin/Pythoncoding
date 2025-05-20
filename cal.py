@@ -45,6 +45,12 @@ def calculate():
         messagebox.showerror("Error", "Invalid input or calculation error")
         expression.set("")
 
+def update_history():
+    history_text.delete(1.0, tk.END)
+    if history
+        history_text.insert(tk.END, "\n".join(history))
+    else:
+        history_text.insert(tk.END, "No history yet")
 
 
 
