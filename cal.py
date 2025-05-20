@@ -16,6 +16,9 @@ def press(num):
 def clear():
     expression.set("")
 
+def calculate():
+    expr = expression.get()
+
 
 def add(x, y):
     return x + y
