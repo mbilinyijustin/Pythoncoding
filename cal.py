@@ -44,6 +44,12 @@ def calculate():
         expr = expr.replace('√', 'sqrt')
         expr = expr.replace('^', '**')
 
+        # 🧠 Auto-close unmatched parentheses
+        open_parens = expr.count('(')
+        close_parens = expr.count(')')
+        if open_parens > close_parens:
+            expr += ')' * (open_parens - close_parens)
+
         # Evaluate the expression safely
         result = eval(expr, {"__builtins__": {}}, allowed_names)
 
