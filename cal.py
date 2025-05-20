@@ -27,6 +27,14 @@ def calculate():
         expr = expr.replace('sin', 'math.sin(math.radians')
         expr = expr.replace('cos', 'math.cos(math.radians')
         expr = expr.replace('tan', 'math.tan(math.radians')
+        #Add closing parentheses for trig functions if needed
+        #(simple fix for one trig function usage)
+        if 'math.sin(math.radians' in expr:
+        expr += ')'
+        if 'math.cos(math.radians' in expr:
+        expr += ')'
+        if 'math.tan(math.radians' in expr:
+        expr += ')'
 
 
 
