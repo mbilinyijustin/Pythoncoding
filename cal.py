@@ -25,30 +25,33 @@ def clear():
 def calculate():
     expr = expression.get()
     try:
-        # Evaluate with math functions support
-        # Replace common math function names with math module equivalent
-        expr = expr.replace('^', '**')
-        expr = expr.replace('√', 'math.sqrt')
-        expr = expr.replace('log', 'math.log10')
-        expr = expr.replace('sin', 'math.sin(math.radians')
-        expr = expr.replace('cos', 'math.cos(math.radians')
-        expr = expr.replace('tan', 'math.tan(math.radians')
-        # Add closing parentheses for trig functions if needed
-        # (simple fix for one trig function usage)
-        if 'math.sin(math.radians' in expr:
-            expr += ')'
-        if 'math.cos(math.radians' in expr:
-            expr += ')'
-        if 'math.tan(math.radians' in expr:
-            expr += ')'
+        # Define allowed names (safe eval context)
+        allowed_names = {
+            'sin': lambda x: math.sin(math.radians(x)),
+            'cos': lambda x: math.cos(math.radians(x)),
+            'tan': lambda x: math.tan(math.radians(x)),
+            'log': math.log10,
+            'sqrt': math.sqrt,
+            'abs': abs,
+            'pow': pow
+        }
 
-        result = eval(expr)
+        # Add math constants
+        allowed_names['pi'] = math.pi
+        allowed_names['e'] = math.e
+
+        # Replace custom symbols with valid Python
+        expr = expr.replace('√', 'sqrt')
+        expr = expr.replace('^', '**')
+
+        # Evaluate the expression safely
+        result = eval(expr, {"__builtins__": {}}, allowed_names)
+
         history.append(f"{expression.get()} = {result}")
         expression.set(str(result))
         update_history()
-
     except Exception as e:
-        messagebox.showerror("Error", "Invalid input or calculation error")
+        messagebox.showerror("Error", f"Invalid input or calculation error:\n{e}")
         expression.set("")
 
 
