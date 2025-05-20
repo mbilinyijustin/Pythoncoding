@@ -52,6 +52,10 @@ def update_history():
     else:
         history_text.insert(tk.END, "No history yet")
 
+def clear_history():
+    history.clear()
+    update_history()
+
 
 
 
