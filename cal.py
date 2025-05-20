@@ -92,9 +92,9 @@ def button_click(value):
         clear_history()
     else:
         # For math functions add parentheses automatically
-        if value in ['√', 'log']:
-            expression.set(expression.get() + value + '(')
-        elif value in ['sin', 'cos', 'tan']:
+        if value in ['√']:
+            expression.set(expression.get() + 'sqrt(')
+        elif value in ['log', 'sin', 'cos', 'tan']:
             expression.set(expression.get() + value + '(')
         else:
             press(value)
