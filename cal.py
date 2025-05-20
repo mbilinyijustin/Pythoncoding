@@ -18,6 +18,16 @@ def clear():
 
 def calculate():
     expr = expression.get()
+    try:
+        #Evaluate with math functions support
+        #Replace common math function names with math module equivalent
+        expr = expr.replace('^', '**')
+        expr = expr.replace('√', 'math.sqrt')
+        expr = expr.replace('log', 'math.log10')
+        expr = expr.replace('sin', 'math.sin(math.radians')
+        expr = expr.replace('cos', 'math.cos(math.radians')
+        expr = expr.replace('tan', 'math.tan(math.radians')
+
 
 
 def add(x, y):
