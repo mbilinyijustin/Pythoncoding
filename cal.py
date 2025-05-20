@@ -89,6 +89,18 @@ def button_click(value):
         else:
             press(value)
 
+# Create buttons dynamically
+row_val = 1
+col_val = 0
+for btn in buttons:
+    action = lambda x=btn: button_click(x)
+    b = tk.Button(root, text=btn, width=7, height=2, font=("Arial", 14), command=action)
+    b.grid(row=row_val, column=col_val, padx=3, pady=3)
+    col_val += 1
+    if col_val > 3:
+        col_val = 0
+        row_val += 1
+
 
 
 def add(x, y):
