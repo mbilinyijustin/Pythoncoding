@@ -13,6 +13,9 @@ expression = tk.StringVar()
 def press(num):
     expression.set(expression.get() + str(num))
 
+def clear():
+    expression.set("")
+
 
 def add(x, y):
     return x + y
