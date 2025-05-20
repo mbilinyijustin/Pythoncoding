@@ -72,6 +72,23 @@ buttons = [
 ]
 
 
+# Function to handle button click
+def button_click(value):
+    if value == 'C':
+        clear()
+    elif value == '=':
+        calculate()
+    elif value == 'Clear History':
+        clear_history()
+    else:
+        # For math functions add parentheses automatically
+        if value in ['√', 'log']:
+            expression.set(expression.get() + value + '(')
+        elif value in ['sin', 'cos', 'tan']:
+            expression.set(expression.get() + value + '(')
+        else:
+            press(value)
+
 
 
 def add(x, y):
