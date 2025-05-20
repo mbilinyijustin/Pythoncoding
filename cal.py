@@ -30,11 +30,22 @@ def calculate():
         #Add closing parentheses for trig functions if needed
         #(simple fix for one trig function usage)
         if 'math.sin(math.radians' in expr:
-        expr += ')'
+            expr += ')'
         if 'math.cos(math.radians' in expr:
-        expr += ')'
+            expr += ')'
         if 'math.tan(math.radians' in expr:
-        expr += ')'
+            expr += ')'
+
+        result = eval(expr)
+        history.append(f"{expression.get()} = {result}")
+        expression.set(str(result))
+        update_history()
+
+    except Exception as e:
+        messagebox.showerror("Error", "Invalid input or calculation error")
+        expression.set("")
+
+
 
 
 
