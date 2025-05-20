@@ -57,6 +57,11 @@ def clear_history():
     update_history()
 
 
+#Layout
+entry = tk.Entry(root, textvariable=expression, font=("Arial", 20), bd=5, relief=tk.RIDGE, justify='right')
+entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
+
 
 
 def add(x, y):
