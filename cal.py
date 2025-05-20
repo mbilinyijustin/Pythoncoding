@@ -2,6 +2,10 @@ import math
 import tkinter as tk
 from tkinter import messagebox
 
+#main app window
+root = tk.Tk()
+root.title("Calculator with History")
+
 
 def add(x, y):
     return x + y
