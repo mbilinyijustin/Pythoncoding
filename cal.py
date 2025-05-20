@@ -6,6 +6,13 @@ from tkinter import messagebox
 root = tk.Tk()
 root.title("Calculator with History")
 
+#StringVar for the display
+expression = tk.StringVar()
+
+#functions
+def press(num):
+    expression.set(expression.get() + str(num))
+
 
 def add(x, y):
     return x + y
