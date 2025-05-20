@@ -2,33 +2,39 @@ import math
 import tkinter as tk
 from tkinter import messagebox
 
-#main app window
+# List to store history
+history = []
+
+# main app window
 root = tk.Tk()
 root.title("Calculator with History")
 
-#StringVar for the display
+# StringVar for the display
 expression = tk.StringVar()
 
-#functions
+
+# functions
 def press(num):
     expression.set(expression.get() + str(num))
+
 
 def clear():
     expression.set("")
 
+
 def calculate():
     expr = expression.get()
     try:
-        #Evaluate with math functions support
-        #Replace common math function names with math module equivalent
+        # Evaluate with math functions support
+        # Replace common math function names with math module equivalent
         expr = expr.replace('^', '**')
         expr = expr.replace('√', 'math.sqrt')
         expr = expr.replace('log', 'math.log10')
         expr = expr.replace('sin', 'math.sin(math.radians')
         expr = expr.replace('cos', 'math.cos(math.radians')
         expr = expr.replace('tan', 'math.tan(math.radians')
-        #Add closing parentheses for trig functions if needed
-        #(simple fix for one trig function usage)
+        # Add closing parentheses for trig functions if needed
+        # (simple fix for one trig function usage)
         if 'math.sin(math.radians' in expr:
             expr += ')'
         if 'math.cos(math.radians' in expr:
@@ -45,6 +51,7 @@ def calculate():
         messagebox.showerror("Error", "Invalid input or calculation error")
         expression.set("")
 
+
 def update_history():
     history_text.delete(1.0, tk.END)
     if history:
@@ -52,15 +59,15 @@ def update_history():
     else:
         history_text.insert(tk.END, "No history yet")
 
+
 def clear_history():
     history.clear()
     update_history()
 
 
-#Layout
+# Layout
 entry = tk.Entry(root, textvariable=expression, font=("Arial", 20), bd=5, relief=tk.RIDGE, justify='right')
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-
 
 buttons = [
     '7', '8', '9', '/',
@@ -89,6 +96,7 @@ def button_click(value):
         else:
             press(value)
 
+
 # Create buttons dynamically
 row_val = 1
 col_val = 0
@@ -101,18 +109,16 @@ for btn in buttons:
         col_val = 0
         row_val += 1
 
-
 # History text box
 history_label = tk.Label(root, text="History", font=("Arial", 14))
 history_label.grid(row=row_val, column=0, columnspan=4)
 
 history_text = tk.Text(root, height=10, width=35, font=("Arial", 12))
-history_text.grid(row=row_val+1, column=0, columnspan=4, padx=10, pady=5)
+history_text.grid(row=row_val + 1, column=0, columnspan=4, padx=10, pady=5)
 
 update_history()
 
 root.mainloop()
-
 
 
 def add(x, y):
@@ -165,8 +171,7 @@ def tangent(x):
     return math.tan(math.radians(x))
 
 
-# List to store history
-history = []
+
 
 # Main loop
 while True:
