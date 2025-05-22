@@ -1,0 +1,16 @@
+[
+    {
+        "task": "wake up at 5:00 AM",
+        "category": "personal",
+        "due_date": "2025-05-12",
+        "timestamp": "2025-05-11 09:43:10",
+        "done": false
+    },
+    {
+        "task": "praying ",
+        "category": "personal",
+        "due_date": null,
+        "timestamp": "2025-05-11 09:58:51",
+        "done": false
+    }
+]
